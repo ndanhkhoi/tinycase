@@ -1,0 +1,30 @@
+{
+  "name": "tinycase",
+  "title": "TinyCase",
+  "description": "Quick text case converter running locally - convert selected text or clipboard content to camelCase, PascalCase, snake_case, kebab-case, and more",
+  "version": "1.0.0",
+  "author": "ndanhkhoi",
+  "license": "MIT",
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint",
+    "publish": "npx @raycast/api@latest publish"
+  },
+  "dependencies": {
+    "@raycast/api": "^1.83.2",
+    "change-case": "^5.4.4"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^1.0.11",
+    "@types/node": "20.8.10",
+    "@types/react": "18.3.3",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
