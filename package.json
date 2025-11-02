@@ -1,10 +1,89 @@
 {
+  "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "tinycase",
   "title": "TinyCase",
   "description": "Quick text case converter running locally - convert selected text or clipboard content to camelCase, PascalCase, snake_case, kebab-case, and more",
-  "version": "1.0.0",
+  "icon": "command-icon.png",
   "author": "ndanhkhoi",
+  "categories": [
+    "Developer Tools",
+    "Productivity"
+  ],
   "license": "MIT",
+  "commands": [
+    {
+      "name": "command",
+      "title": "Convert Text Case",
+      "description": "Convert selected text or clipboard content to different cases",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "outputMode",
+      "type": "dropdown",
+      "required": false,
+      "title": "Output Mode",
+      "description": "How to output the converted text",
+      "default": "paste",
+      "data": [
+        {
+          "title": "Paste (replace selection)",
+          "value": "paste"
+        },
+        {
+          "title": "Copy to clipboard",
+          "value": "clipboard"
+        }
+      ]
+    },
+    {
+      "name": "defaultCase",
+      "type": "dropdown",
+      "required": false,
+      "title": "Default Case",
+      "description": "Default case type when opening the command",
+      "default": "camel",
+      "data": [
+        {
+          "title": "camelCase",
+          "value": "camel"
+        },
+        {
+          "title": "PascalCase",
+          "value": "pascal"
+        },
+        {
+          "title": "snake_case",
+          "value": "snake"
+        },
+        {
+          "title": "kebab-case",
+          "value": "kebab"
+        },
+        {
+          "title": "CONSTANT_CASE",
+          "value": "constant"
+        },
+        {
+          "title": "Title Case",
+          "value": "title"
+        },
+        {
+          "title": "Sentence case",
+          "value": "sentence"
+        },
+        {
+          "title": "lowercase",
+          "value": "lower"
+        },
+        {
+          "title": "UPPERCASE",
+          "value": "upper"
+        }
+      ]
+    }
+  ],
   "scripts": {
     "build": "ray build -e dist",
     "dev": "ray develop",
@@ -19,10 +98,10 @@
   "devDependencies": {
     "@raycast/eslint-config": "^1.0.11",
     "@types/node": "20.8.10",
-    "@types/react": "18.3.3",
+    "@types/react": "^18.2.21",
     "eslint": "^8.57.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.2.2"
   },
   "engines": {
     "node": ">=18.0.0"

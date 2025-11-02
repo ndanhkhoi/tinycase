@@ -1,5 +1,16 @@
-import { Action, ActionPanel, Clipboard, getPreferenceValues, Icon, List, showHUD, showToast, Toast } from "@raycast/api";
-import { useEffect, useState } from "react";
+import {
+  Action,
+  ActionPanel,
+  Clipboard,
+  getPreferenceValues,
+  getSelectedText,
+  Icon,
+  List,
+  showHUD,
+  showToast,
+  Toast,
+} from "@raycast/api";
+import * as React from "react";
 import { caseOptions, CaseType, getCaseOption } from "./utils";
 
 interface Preferences {
@@ -8,23 +19,30 @@ interface Preferences {
 }
 
 export default function Command() {
-  const [inputText, setInputText] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [inputText, setInputText] = React.useState<string>("");
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const preferences = getPreferenceValues<Preferences>();
 
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetchInput() {
       try {
-        // Try to get selected text first
-        const selectedText = await Clipboard.readText();
-        
-        if (selectedText && selectedText.trim().length > 0) {
-          setInputText(selectedText);
-        } else {
-          // Fallback to clipboard if no selection
+        // Try to get selected text from the frontmost application
+        let text = "";
+
+        try {
+          const selectedText = await getSelectedText();
+          if (selectedText && selectedText.trim().length > 0) {
+            text = selectedText;
+          }
+        } catch (error) {
+          // If getSelectedText fails, try clipboard
           const clipboardText = await Clipboard.readText();
-          setInputText(clipboardText || "");
+          if (clipboardText && clipboardText.trim().length > 0) {
+            text = clipboardText;
+          }
         }
+
+        setInputText(text);
       } catch (error) {
         console.error("Error reading input:", error);
         await showToast({
@@ -89,10 +107,17 @@ export default function Command() {
 
   return (
     <List isLoading={isLoading} searchBarPlaceholder="Select a case type...">
-      <List.Section title="Input Text" subtitle={inputText ? `"${inputText.substring(0, 50)}${inputText.length > 50 ? "..." : ""}"` : "No input"}>
+      <List.Section
+        title="Input Text"
+        subtitle={
+          inputText
+            ? `"${inputText.substring(0, 50)}${inputText.length > 50 ? "..." : ""}"`
+            : "No input"
+        }
+      >
         {caseOptions.map((caseOption) => {
           const preview = inputText ? caseOption.transform(inputText) : "";
-          
+
           return (
             <List.Item
               key={caseOption.id}
@@ -101,14 +126,23 @@ export default function Command() {
               subtitle={preview ? `→ ${preview}` : ""}
               accessories={[
                 {
-                  text: caseOption.id === preferences.defaultCase ? "Default" : "",
+                  text:
+                    caseOption.id === preferences.defaultCase ? "Default" : "",
                 },
               ]}
               actions={
                 <ActionPanel>
                   <Action
-                    title={preferences.outputMode === "paste" ? "Convert and Paste" : "Convert and Copy"}
-                    icon={preferences.outputMode === "paste" ? Icon.Clipboard : Icon.CopyClipboard}
+                    title={
+                      preferences.outputMode === "paste"
+                        ? "Convert and Paste"
+                        : "Convert and Copy"
+                    }
+                    icon={
+                      preferences.outputMode === "paste"
+                        ? Icon.Clipboard
+                        : Icon.CopyClipboard
+                    }
                     onAction={() => handleConvert(caseOption.id)}
                   />
                   <Action.CopyToClipboard

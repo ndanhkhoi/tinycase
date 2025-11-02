@@ -6,6 +6,10 @@
   "icon": "command-icon.svg",
   "author": "ndanhkhoi",
   "license": "MIT",
+  "categories": [
+    "Developer Tools",
+    "Productivity"
+  ],
   "commands": [
     {
       "name": "command",

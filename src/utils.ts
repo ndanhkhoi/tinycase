@@ -48,7 +48,7 @@ export const caseOptions: CaseOption[] = [
   {
     id: "kebab",
     title: "kebab-case",
-    icon: "�串",
+    icon: "🔗",
     transform: kebabCase,
   },
   {
