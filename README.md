@@ -13,7 +13,7 @@ TinyCase is a lightweight, privacy-focused Raycast extension that helps you quic
 - 🐪 **camelCase** - for JavaScript/TypeScript variables
 - 🅿️ **PascalCase** - for classes and components
 - 🐍 **snake_case** - for Python and database columns
-- �串 **kebab-case** - for URLs and CSS classes
+- 🔗 **kebab-case** - for URLs and CSS classes
 - 🔒 **CONSTANT_CASE** - for environment variables
 - 📰 **Title Case** - for headings
 - 📝 **Sentence case** - for regular text
